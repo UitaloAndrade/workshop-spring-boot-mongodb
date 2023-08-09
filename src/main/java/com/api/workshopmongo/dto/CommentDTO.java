@@ -1,7 +1,6 @@
 package com.api.workshopmongo.dto;
 
 import java.io.Serializable;
-import java.util.Calendar;
 
 public class CommentDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
