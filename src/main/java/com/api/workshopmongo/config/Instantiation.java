@@ -9,12 +9,13 @@ import org.springframework.context.annotation.Configuration;
 import com.api.workshopmongo.domain.Post;
 import com.api.workshopmongo.domain.User;
 import com.api.workshopmongo.dto.AuthorDTO;
+import com.api.workshopmongo.dto.CommentDTO;
 import com.api.workshopmongo.repositories.PostRepository;
 import com.api.workshopmongo.repositories.UserRepository;
 
 @Configuration
 public class Instantiation implements CommandLineRunner{
-
+	
 	@Autowired
 	private UserRepository userRepository;
 	
@@ -23,7 +24,7 @@ public class Instantiation implements CommandLineRunner{
 	
 	@Override
 	public void run(String... args) throws Exception {
-
+	
 		userRepository.deleteAll();
 		postRepository.deleteAll();
 		
@@ -35,6 +36,13 @@ public class Instantiation implements CommandLineRunner{
 		
 		Post post1 = new Post(null, "21/03/2018", "Partiu viagem", "Vou viajar para Sao Paulo. Abracos!", new AuthorDTO(maria));
 		Post post2 = new Post(null, "23/03/2018", "Bom dia", "Acordei feliz hoje!", new AuthorDTO(maria));
+		
+		CommentDTO c1 = new CommentDTO("Boa viagem mano!", new AuthorDTO(alex));
+		CommentDTO c2 = new CommentDTO("Aproveite", new AuthorDTO(bob));
+		CommentDTO c3 = new CommentDTO("Tenha um ótimo dia!", new AuthorDTO(alex));
+		
+		post1.getComments().addAll(Arrays.asList(c1, c2));
+		post2.getComments().addAll(Arrays.asList(c3));
 		
 		postRepository.saveAll(Arrays.asList(post1, post2));
 		
